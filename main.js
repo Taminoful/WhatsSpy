@@ -8,6 +8,9 @@
 // @grant        none
 // ==/UserScript==
 /* jshint -W097 */
+var enabled = true, 
+    isOnline = false;
+
 window.onload = function() {
     Notification.requestPermission();
     var jq = document.createElement('script');
@@ -29,17 +32,26 @@ window.onload = function() {
     },500);
 };
 
-var isOnline = false;
+$(window).on("blur focus", function(e) {
+    var prevType = $(this).data("prevType");
+    if (prevType != e.type) {
+        if(e.type == "focus") {
+            enabled = false;
+        } else {
+            enabled = true;
+        }
+    }
+});
 
 function mirEgal() {
     if($("#main > header > div.chat-body > div.chat-status.ellipsify > span").text() == "online") {
-        if(isOnline === true) return;
+        if(isOnline === true && enabled === true) return;
         isOnline = true;
         var notification = new Notification('WhatsSpy', {
             icon: $("#main > header > div.chat-avatar > div > img").attr("src"),
-            body:  $("#main > header > div.chat-body > div.chat-main > h2 > span").text() + " ist nun online!"
+            body:  $("#main > header > div.chat-body > div.chat-main > h2 > span").text() + " ist nun online!",
         });
-        setTimeout(function(){notification.close();},10000);
+        setTimeout(function(){notification.close();},7000);
     } else {
        isOnline = false;
     }
