@@ -2,7 +2,7 @@
 // @name         WhatsSpy
 // @namespace    http://tampermonkey.net/
 // @version      0.1
-// @description  try to take over the world!
+// @description  trys to take over the world!
 // @author       Manuel Bernhard (Fusix) ♥
 // @match        https://web.whatsapp.com/
 // @grant        none
